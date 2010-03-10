@@ -10,7 +10,9 @@ begin
     gem.homepage = "http://github.com/airblade/brocade"
     gem.authors = ["Andy Stewart"]
     gem.add_dependency 'barby'
-    gem.add_dependency 'png'
+    # Use v1.1.0 of png because 1.2.0 causes problems.
+    # http://groups.google.com/group/ruby-barby/browse_thread/thread/03a082f9a1202106
+    gem.add_dependency 'png', '1.1.0'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
