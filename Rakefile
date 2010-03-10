@@ -5,11 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "brocade"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Barcodes for Rails ActiveRecord models}
+    #gem.description = %Q{TODO: longer description of your gem}
     gem.email = "boss@airbladesoftware.com"
     gem.homepage = "http://github.com/airblade/brocade"
     gem.authors = ["Andy Stewart"]
+    gem.add_dependency 'barby'
+    gem.add_dependency 'png'
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
