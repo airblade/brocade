@@ -4,15 +4,6 @@ require 'barby/outputter/png_outputter'
 # A way of managing barcodes based closely on Thoughtbot's Paperclip.
 # It consists of two parts: barcode creation and file management.
 # Currently the file management is DIY but it might be better to delegate to Paperclip.
-#
-# TODO:
-# * configure outputter
-# * configure symbology
-# * support multiple symbologies per model (c.f. Paperclip's attachment definitions)
-# * configure ImageMagick path
-# * configure URL
-# * configure path
-# * support non-filesystem storage?
 module Brocade
 
   def self.included(base)
@@ -30,8 +21,11 @@ module Brocade
   end
 
   module InstanceMethods
+    # Returns the name of the method (as a symbol) to call to get the
+    # data to be barcoded.
+    #
+    # Override this in your model as appropriate.
     def barcodable
-      # Method's symbol, not the method itself
       :code
     end
 

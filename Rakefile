@@ -5,8 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "brocade"
-    gem.summary = %Q{Barcodes for Rails ActiveRecord models}
-    #gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Generates barcodes for Rails ActiveRecord models.}
     gem.email = "boss@airbladesoftware.com"
     gem.homepage = "http://github.com/airblade/brocade"
     gem.authors = ["Andy Stewart"]
