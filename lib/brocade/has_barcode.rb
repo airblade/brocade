@@ -12,6 +12,7 @@ module Brocade
 
   module ClassMethods
     def has_barcode
+      # Lazily load.
       send :include, InstanceMethods
 
       after_create  :create_barcode
@@ -20,6 +21,8 @@ module Brocade
     end
   end
 
+  # Wrap the methods below in a module so we can include them
+  # only in the ActiveRecord models which declare `has_brocade`.
   module InstanceMethods
     # Returns the name of the method (as a symbol) to call to get the
     # data to be barcoded.
