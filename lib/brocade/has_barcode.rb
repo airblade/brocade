@@ -11,7 +11,10 @@ module Brocade
   end
 
   module ClassMethods
-    def has_barcode
+    def has_barcode(options = {})
+      cattr_accessor :options
+      self.options = options
+
       # Lazily load.
       send :include, InstanceMethods
 
@@ -36,18 +39,21 @@ module Brocade
       :code128
     end
 
-    def create_barcode
+    def create_barcode(opts = {})
       barcode = Barby::Code128B.new send(barcodable)
       path = barcode_path
       FileUtils.mkdir_p File.dirname(path)
       File.open(path, 'wb') do |f|
-        f.write barcode.to_png
+        # Barby's PNG Outputter defaults to a margin of 10px and height of 100px.
+        # NOTE: setting the width makes no difference.
+        # http://github.com/toretore/barby/blob/master/lib/barby/outputter/png_outputter.rb
+        f.write barcode.to_png(self.class.options.merge(opts))
       end
       FileUtils.chmod 0644, path
     end
 
-    def update_barcode
-      create_barcode if changed.include? barcodable
+    def update_barcode(opts = {})
+      create_barcode(opts) if changed.include? barcodable
     end
 
     def destroy_barcode

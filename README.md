@@ -53,6 +53,17 @@ Now you get this:
     # deletes barcode image.
 
 
+## 'Advanced' Usage
+
+You can pass options to Brocade to control the PNG it generates.  For example:
+
+    class Item < ActiveRecord::Base
+      has_barcode :margin => 5, :height => 40
+    end
+
+These options are passed through to Barby's [PNG Outputter][pngout].  Note that setting the width makes no difference.
+
+
 ## Installation.
 
 Install as a gem.  In your `config.rb`:
@@ -101,3 +112,4 @@ Copyright (c) 2010 Andy Stewart. See LICENSE for details.
   [barby]: http://github.com/toretore/barby
   [paperclip]: http://github.com/thoughtbot/paperclip
   [png]: http://seattlerb.rubyforge.org/png/
+  [pngout]: http://github.com/toretore/barby/blob/master/lib/barby/outputter/png_outputter.rb#L58
