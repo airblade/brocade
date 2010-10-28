@@ -1,0 +1,32 @@
+PATH
+  remote: .
+  specs:
+    brocade (1.0.2)
+      barby (= 0.3.2)
+      png (= 1.1.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    RubyInline (3.8.6)
+      ZenTest (~> 4.3)
+    ZenTest (4.4.0)
+    barby (0.3.2)
+    hoe (2.6.2)
+      rake (>= 0.8.7)
+      rubyforge (>= 2.0.4)
+    json_pure (1.4.6)
+    png (1.1.0)
+      RubyInline (>= 3.5.0)
+      hoe (>= 1.2.0)
+    rake (0.8.7)
+    rubyforge (2.0.4)
+      json_pure (>= 1.1.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  barby (= 0.3.2)
+  brocade!
+  png (= 1.1.0)
