@@ -77,15 +77,22 @@ module Brocade
     end
 
     def barcode_url
-      "/system/barcodes/#{klass}/#{id}/#{symbology}.png"
+      "/system/barcodes/#{klass}/#{partitioned_id}/#{symbology}.png"
     end
 
     def barcode_path
-      "#{RAILS_ROOT}/public/system/barcodes/#{klass}/#{id}/#{symbology}.png"
+      "#{RAILS_ROOT}/public/system/barcodes/#{klass}/#{partitioned_id}/#{symbology}.png"
     end
 
     def klass
       self.class.to_s.underscore.pluralize
+    end
+
+    # Returns the id in a split path form.
+    # E.g. Returns 001/234 for an id of 1234.
+    def partitioned_id
+      # 1,000,000 records is enough for now.
+      ("%06d" % id).scan(/\d{3}/).join('/')
     end
   end
 
