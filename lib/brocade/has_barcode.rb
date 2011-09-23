@@ -1,4 +1,5 @@
 require 'barby'
+require 'barby/barcode/code_128'
 require 'barby/outputter/png_outputter'
 
 # A way of managing barcodes based closely on Thoughtbot's Paperclip.
