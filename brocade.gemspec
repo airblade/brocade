@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files   = Dir.glob("test/**/*")
   s.require_path = 'lib'
 
-  s.add_dependency 'barby', '0.3.2'
-  s.add_dependency 'png',   '1.1.0'  # Note problems with 1.2.0.
+  s.add_dependency 'barby', '0.5'
+  s.add_dependency 'png',   '1.2.0'
 end
 
