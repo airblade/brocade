@@ -82,7 +82,7 @@ module Brocade
     end
 
     def barcode_path
-      "#{RAILS_ROOT}/public/system/barcodes/#{klass}/#{partitioned_id}/#{symbology}.png"
+      "#{::Rails.root}/public/system/barcodes/#{klass}/#{partitioned_id}/#{symbology}.png"
     end
 
     def klass
