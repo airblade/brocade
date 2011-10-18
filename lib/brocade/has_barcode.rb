@@ -50,7 +50,7 @@ module Brocade
         # http://github.com/toretore/barby/blob/master/lib/barby/outputter/png_outputter.rb
         f.write barcode.to_png(self.class.options.merge(opts))
       end
-      FileUtils.chmod (0666&~File.umask), path
+      FileUtils.chmod(0666&~File.umask, path)
     end
 
     def update_barcode(opts = {})
