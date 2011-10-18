@@ -17,5 +17,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'barby',      '~> 0.5'
   s.add_dependency 'chunky_png', '~> 1.2'
+  s.add_runtime_dependency 'rake', '0.8.7'
 end
 
