@@ -68,11 +68,11 @@ module Brocade
         while true
           path = File.dirname path
           FileUtils.rmdir path
+          break if File.exists?(path)  # Ruby 1.9.2 does not raise if the removal failed.
         end
       rescue Errno::EEXIST, Errno::ENOTEMPTY, Errno::ENOENT, Errno::EINVAL, Errno::ENOTDIR, Errno::EACCES
         # Stop trying to remove parent directories
       rescue SystemCallError => e
-        #log("There was an unexpected error while deleting directories: #{e.class}")
         # Ignore it
       end
     end
