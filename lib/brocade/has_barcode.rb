@@ -1,3 +1,4 @@
+require 'active_support/core_ext'
 require 'barby'
 require 'barby/barcode/code_128'
 require 'barby/outputter/png_outputter'
@@ -36,21 +37,35 @@ module Brocade
       :code
     end
 
-    def symbology
-      :code128
+    # Returns a Code128 barcode instance.
+    #
+    # opts:
+    # :subset - specify the Code128 subset to use ('A', 'B', or 'C').
+    def barcode(opts = {})
+      data = format_for_subset_c_if_applicable send(barcodable)
+      if (subset = opts[:subset])
+        case subset
+        when 'A'; Barby::Code128A.new data
+        when 'B'; Barby::Code128B.new data
+        when 'C'; Barby::Code128C.new data
+        end
+      else
+        most_efficient_barcode_for data
+      end
     end
 
+    # Writes a barcode PNG image.
+    #
+    # opts:
+    # :subset - specify the Code128 subset to use ('A', 'B', or 'C').
+    # remaining options passed through to PNGOutputter.
     def create_barcode(opts = {})
-      barcode = Barby::Code128B.new send(barcodable)
       path = barcode_path
       FileUtils.mkdir_p File.dirname(path)
       File.open(path, 'wb') do |f|
-        # Barby's PNG Outputter defaults to a margin of 10px and height of 100px.
-        # NOTE: setting the width makes no difference.
-        # http://github.com/toretore/barby/blob/master/lib/barby/outputter/png_outputter.rb
-        f.write barcode.to_png(self.class.options.merge(opts))
+        f.write barcode(opts).to_png(self.class.options.merge(opts))
       end
-      FileUtils.chmod(0666&~File.umask, path)
+      FileUtils.chmod(0666 &~ File.umask, path)
     end
 
     def update_barcode(opts = {})
@@ -85,6 +100,8 @@ module Brocade
       "#{::Rails.root}/public/system/barcodes/#{klass}/#{partitioned_id}/#{symbology}.png"
     end
 
+    private
+
     def klass
       self.class.to_s.underscore.pluralize
     end
@@ -94,6 +111,27 @@ module Brocade
     def partitioned_id
       # 1,000,000 records is enough for now.
       ("%06d" % id).scan(/\d{3}/).join('/')
+    end
+
+    def most_efficient_barcode_for(data)
+      Barby::Code128C.new data
+    rescue ArgumentError
+      begin
+        Barby::Code128B.new data
+      rescue ArgumentError
+        Barby::Code128A.new data
+      end
+    end
+
+    def symbology
+      :code128
+    end
+
+    def format_for_subset_c_if_applicable(data)
+      stringified_data = "#{data}"
+      return data unless stringified_data =~ /^\d+$/
+      return data if stringified_data.length.even?
+      "0#{stringified_data}"
     end
   end
 
