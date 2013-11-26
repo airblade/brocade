@@ -1,10 +1,8 @@
-require 'rubygems'
-require 'test/unit'
-require 'shoulda'
+gem 'minitest'
+require 'minitest/autorun'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'brocade'
-
-class Test::Unit::TestCase
+class TestCase < Minitest::Test
+  def self.test(name, &block)
+    define_method :"test_#{name.inspect}", &block
+  end
 end

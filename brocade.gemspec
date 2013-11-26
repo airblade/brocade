@@ -1,4 +1,6 @@
-$LOAD_PATH.unshift 'lib'
+# encoding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
 require 'brocade/version'
 
 Gem::Specification.new do |s|
@@ -17,6 +19,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'barby',      '~> 0.5'
   s.add_dependency 'chunky_png', '~> 1.2'
-  s.add_development_dependency 'rake', '0.8.7'
+  s.add_dependency 'active_support', '~> 3'
+  s.add_dependency 'i18n'
+  s.add_development_dependency 'rake', '~> 10'
+  s.add_development_dependency 'minitest', '~> 5'
 end
 
